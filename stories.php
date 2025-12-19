@@ -14,7 +14,7 @@ if ($filterLevel >= 1 && $filterLevel <= 5) {
 $story = $stmt->fetch();
 
 if (!$story) {
-    header('Location: start.php');
+    header('Location: start');
     exit;
 }
 
@@ -38,13 +38,10 @@ $levelColors = [
     4 => '#ff4b4b',
     5 => '#ce82ff'
 ];
+
+$pageTitle = htmlspecialchars($title);
+require_once 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($title) ?> - CanCanBook</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -62,6 +59,30 @@ $levelColors = [
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        /* Ensure navbar styles are preserved */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            padding: 0 !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 100 !important;
+            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            width: 100% !important;
+        }
+        
+        .navbar .container {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            padding: 0 1rem !important;
+        }
+        
         body {
             font-family: 'Nunito', sans-serif;
             background: linear-gradient(180deg, var(--bg) 0%, #1a3d6d 100%);
@@ -71,12 +92,17 @@ $levelColors = [
         
         .top-bar {
             background: rgba(0,0,0,0.2);
-            padding: 1rem 2rem;
+            padding: 0 1rem !important;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1rem;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            width: 100% !important;
+            box-sizing: border-box;
         }
         
         .back-btn {
@@ -288,28 +314,30 @@ $levelColors = [
         
         @media (max-width: 600px) {
             .container { padding: 1rem; }
-            .top-bar { padding: 0.75rem 1rem; }
+            .top-bar { 
+                height: 64px !important;
+                min-height: 64px !important;
+                padding: 0 0.75rem !important;
+            }
             .story-title { font-size: 1.5rem; }
             .dialogue-card { padding: 1rem 1.25rem; }
             .char { font-size: 1.3rem; }
             .jyutping { font-size: 0.65rem; }
         }
     </style>
-</head>
-<body>
     <div class="top-bar">
-        <a href="start.php" class="back-btn">← Back</a>
+        <a href="/start" class="back-btn">← Back</a>
         <div class="level-selector">
             <span class="level-badge" onclick="toggleDropdown()">Level <?= $level ?> - <?= $levelNames[$level] ?></span>
             <div class="level-dropdown" id="levelDropdown">
-                <a href="stories.php?level=1" class="level-option"><span class="level-dot" style="background: #58cc02;"></span>Level 1 - Beginner</a>
-                <a href="stories.php?level=2" class="level-option"><span class="level-dot" style="background: #1cb0f6;"></span>Level 2 - Elementary</a>
-                <a href="stories.php?level=3" class="level-option"><span class="level-dot" style="background: #ff9600;"></span>Level 3 - Intermediate</a>
-                <a href="stories.php?level=4" class="level-option"><span class="level-dot" style="background: #ff4b4b;"></span>Level 4 - Upper Intermediate</a>
-                <a href="stories.php?level=5" class="level-option"><span class="level-dot" style="background: #ce82ff;"></span>Level 5 - Advanced</a>
+                <a href="/stories/1" class="level-option"><span class="level-dot" style="background: #58cc02;"></span>Level 1 - Beginner</a>
+                <a href="/stories/2" class="level-option"><span class="level-dot" style="background: #1cb0f6;"></span>Level 2 - Elementary</a>
+                <a href="/stories/3" class="level-option"><span class="level-dot" style="background: #ff9600;"></span>Level 3 - Intermediate</a>
+                <a href="/stories/4" class="level-option"><span class="level-dot" style="background: #ff4b4b;"></span>Level 4 - Upper Intermediate</a>
+                <a href="/stories/5" class="level-option"><span class="level-dot" style="background: #ce82ff;"></span>Level 5 - Advanced</a>
             </div>
         </div>
-        <a href="stories.php<?= $filterLevel ? '?level='.$filterLevel : '' ?>" class="refresh-btn">🔄 New Story</a>
+        <a href="/stories/<?= $level ?>" class="refresh-btn">🔄 New Story</a>
     </div>
     
     <div class="container">
@@ -320,7 +348,7 @@ $levelColors = [
         
         <?php foreach ($content as $line): ?>
         <div class="dialogue-card">
-            <div class="speaker"><?= htmlspecialchars($line['speaker']) ?>：</div>
+            <div class="speaker"><?= htmlspecialchars($line['speaker']) ?></div>
             
             <button class="play-btn" onclick="speakCantonese('<?= htmlspecialchars($line['cantonese'], ENT_QUOTES) ?>')">
                 🔊 Play Audio
@@ -376,6 +404,5 @@ $levelColors = [
             }
         });
     </script>
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>
 

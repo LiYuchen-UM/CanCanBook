@@ -1,12 +1,7 @@
 <?php
-require_once 'config/database.php';
+$pageTitle = 'Choose Your Path';
+require_once 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Your Path - CanCanBook</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -23,6 +18,30 @@ require_once 'config/database.php';
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Ensure navbar styles are preserved */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            padding: 0 !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 100 !important;
+            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            width: 100% !important;
+        }
+        
+        .navbar .container {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            padding: 0 1rem !important;
+        }
         
         body {
             font-family: 'Nunito', sans-serif;
@@ -152,10 +171,8 @@ require_once 'config/database.php';
             .option-card h2 { font-size: 1.3rem; }
         }
     </style>
-</head>
-<body>
     <div class="container">
-        <a href="index.php" class="back-link">← Back to Home</a>
+        <a href="/index" class="back-link">← Back to Home</a>
         
         <div class="header">
             <h1>👋 What would you like to learn?</h1>
@@ -163,21 +180,21 @@ require_once 'config/database.php';
         </div>
         
         <div class="options-grid">
-            <a href="stories.php" class="option-card stories-card">
+            <a href="/stories" class="option-card stories-card">
                 <span class="option-icon">📖</span>
                 <h2>Cantonese Stories</h2>
                 <p>Learn through engaging interactive stories with audio, vocabulary, and comprehension activities.</p>
                 <span class="badge">Immersive</span>
             </a>
             
-            <a href="books.php" class="option-card vocab-card">
+            <a href="/books" class="option-card vocab-card">
                 <span class="option-icon">🎯</span>
                 <h2>Vocabulary Practice</h2>
                 <p>Master Cantonese words through fun matching games. Choose your difficulty level and start practicing!</p>
                 <span class="badge">5 Levels</span>
             </a>
             
-            <a href="quiz.php" class="option-card quiz-card">
+            <a href="/quiz" class="option-card quiz-card">
                 <span class="option-icon">🧠</span>
                 <h2>Quick Quiz</h2>
                 <p>Test your Cantonese knowledge with fun multiple-choice questions about vocabulary and idioms!</p>
@@ -185,6 +202,5 @@ require_once 'config/database.php';
             </a>
         </div>
     </div>
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>
 

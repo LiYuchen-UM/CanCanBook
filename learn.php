@@ -25,13 +25,10 @@ $levelNames = [
     4 => 'Upper Intermediate',
     5 => 'Advanced'
 ];
+
+$pageTitle = 'Learn Cantonese - Level ' . $level;
+require_once 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn Cantonese - Level <?= $level ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -51,6 +48,30 @@ $levelNames = [
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        /* Ensure navbar styles are preserved */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            padding: 0 !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 100 !important;
+            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            width: 100% !important;
+        }
+        
+        .navbar .container {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            padding: 0 1rem !important;
+        }
+        
         body {
             font-family: 'Nunito', sans-serif;
             background: linear-gradient(180deg, var(--bg) 0%, #1a3d6d 100%);
@@ -60,10 +81,17 @@ $levelNames = [
         
         .top-bar {
             background: rgba(0,0,0,0.2);
-            padding: 1rem 2rem;
+            padding: 0 1rem !important;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            width: 100% !important;
+            box-sizing: border-box;
         }
         
         .back-btn {
@@ -166,10 +194,11 @@ $levelNames = [
         .hide-toggle {
             background: white;
             color: var(--bg);
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.25rem;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.85rem;
+            text-decoration: none;
+            font-size: 0.9rem;
             border: none;
             cursor: pointer;
             transition: all 0.15s;
@@ -188,6 +217,7 @@ $levelNames = [
         .hide-toggle.active {
             background: var(--blue);
             color: white;
+            box-shadow: 0 3px 0 var(--blue-dark);
         }
         
         body.hide-mode .yue-card .yue-text,
@@ -377,7 +407,7 @@ $levelNames = [
             margin-bottom: 2rem;
         }
         
-        .btn {
+        .complete-modal .btn {
             display: inline-block;
             padding: 1rem 2.5rem;
             border-radius: 16px;
@@ -394,16 +424,16 @@ $levelNames = [
             text-align: center;
         }
         
-        .btn:hover {
+        .complete-modal .btn:hover {
             transform: translateY(-2px);
         }
         
-        .btn:active {
+        .complete-modal .btn:active {
             transform: translateY(4px);
             box-shadow: 0 0 0 var(--green-dark);
         }
         
-        .btn-secondary {
+        .complete-modal .btn-secondary {
             background: var(--blue);
             box-shadow: 0 4px 0 var(--blue-dark);
         }
@@ -429,7 +459,11 @@ $levelNames = [
             
             .container { padding: 1rem; }
             
-            .top-bar { padding: 0.75rem 1rem; }
+            .top-bar { 
+                height: 64px !important;
+                min-height: 64px !important;
+                padding: 0 0.75rem !important;
+            }
             
             .progress-bar { margin: 0 1rem; }
             
@@ -443,21 +477,19 @@ $levelNames = [
             .modal-content { margin: 1rem; padding: 2rem; }
         }
     </style>
-</head>
-<body>
     <div class="top-bar">
-        <a href="books.php" class="back-btn">✕ Exit</a>
+        <a href="/books" class="back-btn">✕ Exit</a>
         <div class="progress-bar">
             <div class="progress-fill" id="progressFill"></div>
         </div>
         <div class="level-selector">
             <span class="level-badge" onclick="toggleLevelDropdown()">Level <?= $level ?></span>
             <div class="level-dropdown" id="levelDropdown">
-                <a href="learn.php?level=1" class="level-option"><span class="level-dot" style="background: #58cc02;"></span>Level 1 - Beginner</a>
-                <a href="learn.php?level=2" class="level-option"><span class="level-dot" style="background: #1cb0f6;"></span>Level 2 - Elementary</a>
-                <a href="learn.php?level=3" class="level-option"><span class="level-dot" style="background: #ff9600;"></span>Level 3 - Intermediate</a>
-                <a href="learn.php?level=4" class="level-option"><span class="level-dot" style="background: #ff4b4b;"></span>Level 4 - Upper Intermediate</a>
-                <a href="learn.php?level=5" class="level-option"><span class="level-dot" style="background: #ce82ff;"></span>Level 5 - Advanced</a>
+                <a href="/learn/1" class="level-option"><span class="level-dot" style="background: #58cc02;"></span>Level 1 - Beginner</a>
+                <a href="/learn/2" class="level-option"><span class="level-dot" style="background: #1cb0f6;"></span>Level 2 - Elementary</a>
+                <a href="/learn/3" class="level-option"><span class="level-dot" style="background: #ff9600;"></span>Level 3 - Intermediate</a>
+                <a href="/learn/4" class="level-option"><span class="level-dot" style="background: #ff4b4b;"></span>Level 4 - Upper Intermediate</a>
+                <a href="/learn/5" class="level-option"><span class="level-dot" style="background: #ce82ff;"></span>Level 5 - Advanced</a>
             </div>
         </div>
         <button class="hide-toggle" id="hideToggle" onclick="toggleHideMode()">👁 Hide Text</button>
@@ -505,9 +537,9 @@ $levelNames = [
             <h2>🎉 Excellent!</h2>
             <p>You've completed all the matches for Level <?= $level ?>!</p>
             <div class="modal-buttons">
-                <a href="learn.php?level=<?= $level ?>" class="btn">Practice Again</a>
+                <a href="/learn/<?= $level ?>" class="btn">Practice Again</a>
                 <?php if ($level < 5): ?>
-                <a href="learn.php?level=<?= $level + 1 ?>" class="btn btn-secondary">Next Level →</a>
+                <a href="/learn/<?= $level + 1 ?>" class="btn btn-secondary">Next Level →</a>
                 <?php endif; ?>
             </div>
         </div>
@@ -555,18 +587,29 @@ $levelNames = [
         
         // Add experience points
         function addExperience(exp) {
-            fetch('api/add_exp.php', {
+            fetch('/api/add_exp.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ exp: exp })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('HTTP error! status: ' + res.status);
+                }
+                return res.json();
+            })
             .then(data => {
-                if (data.leveled_up) {
-                    alert('🎉 Level Up! You are now Level ' + data.level + '!');
+                if (data.success) {
+                    if (data.leveled_up) {
+                        alert('🎉 Level Up! You are now Level ' + data.level + '!');
+                    }
+                } else {
+                    console.error('Exp update failed:', data.error);
                 }
             })
-            .catch(err => console.log('Exp update failed'));
+            .catch(err => {
+                console.error('Exp update failed:', err);
+            });
         }
         
         // Update progress bar
@@ -655,6 +698,5 @@ $levelNames = [
             });
         });
     </script>
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>
 

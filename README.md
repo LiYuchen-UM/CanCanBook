@@ -81,12 +81,28 @@ See `database/schema.sql` for the full schema and initial seed data.
      define('GOOGLE_REDIRECT_URI', 'http://your-domain.com/auth/callback.php');
      ```
 
-5. **Run**
-   - Serve the site via Apache/Nginx or PHP’s built-in server, e.g.:
+5. **Nginx URL Rewrite**
+   - Add the following rewrite rules to your Nginx server block configuration to enable clean URLs:
+     ```nginx
+     if (!-e $request_filename) {
+         rewrite ^/auth/([a-zA-Z0-9_-]+)$ /auth/$1.php last;
+     }
+
+     if (!-e $request_filename) {
+         rewrite ^/([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)$ /$1.php?level=$2 last;
+     }
+
+     if (!-e $request_filename) {
+         rewrite ^/([a-zA-Z0-9_-]+)$ /$1.php last;
+     }
+     ```
+    
+6. **Run**
+   - Serve the site via Apache/Nginx or PHP's built-in server, e.g.:
      ```bash
      php -S localhost:8000
      ```
-   - Visit `http://localhost:8000/index.php`
+   - Visit `http://localhost:8000/index`
 
 ## Speech & Browser Support
 
@@ -100,5 +116,5 @@ See `database/schema.sql` for the full schema and initial seed data.
 - To add more stories: insert into `stories` with properly formatted JSON `content`.
 - To add more quiz questions: insert into `quiz_questions` with `level` and options/answer.
 
-favicon.ico by https://icon-icons.com/icon/bookmarks-favorites-eye-vision-show/1263
+favicon.ico from https://icon-icons.com/icon/bookmarks-favorites-eye-vision-show/1263
 

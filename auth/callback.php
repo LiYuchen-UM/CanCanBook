@@ -4,7 +4,7 @@ require_once '../config/database.php';
 require_once '../config/google.php';
 
 if (!isset($_GET['code'])) {
-    header('Location: ../index.php');
+    header('Location: ../index');
     exit;
 }
 
@@ -73,6 +73,6 @@ $_SESSION['user_name'] = $userInfo['name'];
 $_SESSION['user_email'] = $userInfo['email'];
 $_SESSION['user_avatar'] = $userInfo['picture'] ?? null;
 
-header('Location: ../index.php');
+header('Location: ../index');
 exit;
 

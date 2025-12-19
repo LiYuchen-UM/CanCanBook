@@ -14,7 +14,7 @@ if ($filterLevel >= 1 && $filterLevel <= 5) {
 $quiz = $stmt->fetch();
 
 if (!$quiz) {
-    header('Location: start.php');
+    header('Location: start');
     exit;
 }
 
@@ -35,13 +35,10 @@ $levelColors = [
     4 => '#ff4b4b',
     5 => '#ce82ff'
 ];
+
+$pageTitle = 'Quick Quiz';
+require_once 'includes/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Quiz - CanCanBook</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -59,6 +56,30 @@ $levelColors = [
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        /* Ensure navbar styles are preserved */
+        .navbar {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(10px) !important;
+            padding: 0 !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 100 !important;
+            border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            width: 100% !important;
+        }
+        
+        .navbar .container {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            padding: 0 1rem !important;
+        }
+        
         body {
             font-family: 'Nunito', sans-serif;
             background: linear-gradient(180deg, var(--bg) 0%, #1a3d6d 100%);
@@ -68,12 +89,17 @@ $levelColors = [
         
         .top-bar {
             background: rgba(0,0,0,0.2);
-            padding: 1rem 2rem;
+            padding: 0 1rem !important;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1rem;
+            height: 64px !important;
+            min-height: 64px !important;
+            max-height: 64px !important;
+            width: 100% !important;
+            box-sizing: border-box;
         }
         
         .back-btn {
@@ -363,28 +389,30 @@ $levelColors = [
         
         @media (max-width: 600px) {
             .container { padding: 1rem; }
-            .top-bar { padding: 0.75rem 1rem; }
+            .top-bar { 
+                height: 64px !important;
+                min-height: 64px !important;
+                padding: 0 0.75rem !important;
+            }
             .quiz-title { font-size: 1.5rem; }
             .quiz-card { padding: 1.5rem; }
             .question { font-size: 1.1rem; }
             .option { padding: 1rem; font-size: 1rem; }
         }
     </style>
-</head>
-<body>
     <div class="top-bar">
-        <a href="start.php" class="back-btn">← Back</a>
+        <a href="/start" class="back-btn">← Back</a>
         <div class="level-selector">
             <span class="level-badge" onclick="toggleDropdown()">Level <?= $level ?> - <?= $levelNames[$level] ?></span>
             <div class="level-dropdown" id="levelDropdown">
-                <a href="quiz.php?level=1" class="level-option"><span class="level-dot" style="background: #58cc02;"></span>Level 1 - Beginner</a>
-                <a href="quiz.php?level=2" class="level-option"><span class="level-dot" style="background: #1cb0f6;"></span>Level 2 - Elementary</a>
-                <a href="quiz.php?level=3" class="level-option"><span class="level-dot" style="background: #ff9600;"></span>Level 3 - Intermediate</a>
-                <a href="quiz.php?level=4" class="level-option"><span class="level-dot" style="background: #ff4b4b;"></span>Level 4 - Upper Intermediate</a>
-                <a href="quiz.php?level=5" class="level-option"><span class="level-dot" style="background: #ce82ff;"></span>Level 5 - Advanced</a>
+                <a href="/quiz/1" class="level-option"><span class="level-dot" style="background: #58cc02;"></span>Level 1 - Beginner</a>
+                <a href="/quiz/2" class="level-option"><span class="level-dot" style="background: #1cb0f6;"></span>Level 2 - Elementary</a>
+                <a href="/quiz/3" class="level-option"><span class="level-dot" style="background: #ff9600;"></span>Level 3 - Intermediate</a>
+                <a href="/quiz/4" class="level-option"><span class="level-dot" style="background: #ff4b4b;"></span>Level 4 - Upper Intermediate</a>
+                <a href="/quiz/5" class="level-option"><span class="level-dot" style="background: #ce82ff;"></span>Level 5 - Advanced</a>
             </div>
         </div>
-        <a href="quiz.php<?= $filterLevel ? '?level='.$filterLevel : '' ?>" class="refresh-btn">🔄 New Quiz</a>
+        <a href="/quiz/<?= $level ?>" class="refresh-btn">🔄 New Quiz</a>
     </div>
     
     <div class="container">
@@ -414,7 +442,7 @@ $levelColors = [
             </div>
             <?php endif; ?>
             
-            <button class="next-btn" id="nextBtn" onclick="location.href='quiz.php<?= $filterLevel ? '?level='.$filterLevel : '' ?>'">
+            <button class="next-btn" id="nextBtn" onclick="location.href='/quiz/<?= $level ?>'">
                 Next Question →
             </button>
         </div>
@@ -483,20 +511,30 @@ $levelColors = [
         });
         
         function addExperience(exp) {
-            fetch('api/add_exp.php', {
+            fetch('/api/add_exp.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ exp: exp })
             })
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('HTTP error! status: ' + res.status);
+                }
+                return res.json();
+            })
             .then(data => {
-                if (data.leveled_up) {
-                    alert('🎉 Level Up! You are now Level ' + data.level + '!');
+                if (data.success) {
+                    if (data.leveled_up) {
+                        alert('🎉 Level Up! You are now Level ' + data.level + '!');
+                    }
+                } else {
+                    console.error('Exp update failed:', data.error);
                 }
             })
-            .catch(err => console.log('Exp update failed'));
+            .catch(err => {
+                console.error('Exp update failed:', err);
+            });
         }
     </script>
-</body>
-</html>
+<?php require_once 'includes/footer.php'; ?>
 
