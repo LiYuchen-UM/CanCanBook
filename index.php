@@ -2,6 +2,13 @@
 $pageTitle = 'CanCanBook';
 require_once 'includes/header.php';
 ?>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .navbar,
+        .navbar * {
+            font-family: 'Nunito', sans-serif !important;
+        }
+    </style>
 
     <header class="hero">
         <div class="container">
@@ -13,6 +20,9 @@ require_once 'includes/header.php';
 
     <section class="features">
         <div class="container">
+            <div class="video-container">
+                <iframe width="960" height="540" src="https://www.youtube.com/embed/xThI1i_fWDo?si=4r7qvo1gMa98wjEI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
             <h2>Why CanCanBook?</h2>
             <div class="features-grid">
                 <div class="feature-card">
@@ -52,6 +62,26 @@ require_once 'includes/header.php';
     </div>
 
     <style>
+        .video-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0 3rem 0;
+        }
+
+        .video-container iframe {
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9;
+        }
+
+        @media (max-width: 768px) {
+            .video-container iframe {
+                width: 100%;
+                height: auto;
+            }
+        }
+
         .login-modal {
             position: fixed;
             top: 0;
