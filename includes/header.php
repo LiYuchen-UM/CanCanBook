@@ -31,10 +31,8 @@ if (isset($_SESSION['user_id'])) {
 <body>
     <nav class="navbar">
         <div class="container">
-            <a href="/index" class="logo"><img src="/favicon.ico" alt="" style="width: 1.5rem; height: 1.5rem; vertical-align: middle; margin-right: 0.5rem;"> CanCanBook</a>
+            <a href="/" class="logo"><img src="/favicon.ico" alt="" style="width: 1.5rem; height: 1.5rem; vertical-align: middle; margin-right: 0.5rem;"> CanCanBook</a>
             <ul class="nav-links">
-                <li><a href="/index">Home</a></li>
-                <li><a href="/start">Learn</a></li>
                 <?php if (isset($_SESSION['user_id'])): ?>
                 <li><span style="color: #e2e8f0;">Hi, <?= htmlspecialchars($_SESSION['user_name']) ?></span></li>
                 <?php if ($userLevel !== null): ?>

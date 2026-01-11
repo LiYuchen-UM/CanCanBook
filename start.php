@@ -172,7 +172,7 @@ require_once 'includes/header.php';
         }
     </style>
     <div class="container">
-        <a href="/index" class="back-link">← Back to Home</a>
+        <a href="/" class="back-link">← Back to Home</a>
         
         <div class="header">
             <h1>👋 What would you like to learn?</h1>
