@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+  <style>
+    .title { font: 20px 'Times New Roman', serif; font-weight: bold; }
+    .label { font: 16px 'Times New Roman', serif; }
+    .small { font: 14px 'Times New Roman', serif; }
+    .panel { fill: #f5f5f5; stroke: #333; stroke-width: 2; }
+    .accent { fill: #dbeafe; stroke: #1e3a8a; stroke-width: 2; }
+  </style>
+  <rect width="900" height="420" fill="#ffffff" />
+  <text x="30" y="35" class="title">State of the Art in Language-Learning Multimedia</text>
+
+  <rect x="40" y="70" width="250" height="300" class="panel" rx="12" />
+  <rect x="70" y="110" width="190" height="110" class="accent" rx="8" />
+  <text x="60" y="95" class="label">Mobile Micro-Lessons</text>
+  <text x="70" y="245" class="small">Short, adaptive drills</text>
+  <text x="70" y="270" class="small">Daily streaks &amp; reminders</text>
+  <text x="70" y="295" class="small">Audio-first repetition</text>
+
+  <rect x="325" y="70" width="250" height="300" class="panel" rx="12" />
+  <rect x="355" y="110" width="190" height="110" class="accent" rx="8" />
+  <text x="345" y="95" class="label">Interactive Storybooks</text>
+  <text x="355" y="245" class="small">Line-by-line narration</text>
+  <text x="355" y="270" class="small">Clickable vocabulary</text>
+  <text x="355" y="295" class="small">Contextual translation</text>
+
+  <rect x="610" y="70" width="250" height="300" class="panel" rx="12" />
+  <rect x="640" y="110" width="190" height="110" class="accent" rx="8" />
+  <text x="630" y="95" class="label">Gamified Practice</text>
+  <text x="640" y="245" class="small">XP &amp; leveling systems</text>
+  <text x="640" y="270" class="small">Quick feedback loops</text>
+  <text x="640" y="295" class="small">Lightweight quizzes</text>
+</svg>

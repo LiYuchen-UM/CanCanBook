@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+  <style>
+    .title { font: 20px 'Times New Roman', serif; font-weight: bold; }
+    .node { fill: #f8fafc; stroke: #0f172a; stroke-width: 2; rx: 10; }
+    .label { font: 16px 'Times New Roman', serif; }
+    .arrow { stroke: #0f172a; stroke-width: 2; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#0f172a" />
+    </marker>
+  </defs>
+  <rect width="900" height="520" fill="#ffffff" />
+  <text x="30" y="35" class="title">Logical Flow of CanCanBook User Experience</text>
+
+  <rect x="60" y="80" width="200" height="70" class="node" />
+  <text x="85" y="120" class="label">Google Login</text>
+
+  <rect x="340" y="80" width="220" height="70" class="node" />
+  <text x="375" y="120" class="label">Home Dashboard</text>
+
+  <rect x="640" y="80" width="200" height="70" class="node" />
+  <text x="675" y="120" class="label">Choose Mode</text>
+
+  <rect x="80" y="220" width="220" height="70" class="node" />
+  <text x="110" y="260" class="label">Word Matching</text>
+
+  <rect x="340" y="220" width="220" height="70" class="node" />
+  <text x="370" y="260" class="label">Interactive Story</text>
+
+  <rect x="600" y="220" width="220" height="70" class="node" />
+  <text x="660" y="260" class="label">Quick Quiz</text>
+
+  <rect x="340" y="360" width="220" height="70" class="node" />
+  <text x="380" y="400" class="label">XP + Level Update</text>
+
+  <line x1="260" y1="115" x2="340" y2="115" class="arrow" />
+  <line x1="560" y1="115" x2="640" y2="115" class="arrow" />
+
+  <line x1="740" y1="150" x2="190" y2="220" class="arrow" />
+  <line x1="740" y1="150" x2="450" y2="220" class="arrow" />
+  <line x1="740" y1="150" x2="710" y2="220" class="arrow" />
+
+  <line x1="190" y1="290" x2="450" y2="360" class="arrow" />
+  <line x1="450" y1="290" x2="450" y2="360" class="arrow" />
+  <line x1="710" y1="290" x2="450" y2="360" class="arrow" />
+
+  <line x1="450" y1="430" x2="450" y2="470" class="arrow" />
+  <text x="360" y="500" class="label">Return to Dashboard</text>
+</svg>

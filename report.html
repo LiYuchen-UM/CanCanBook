@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CanCanBook Multimedia Application Report</title>
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 12pt;
+      line-height: 1;
+      margin: 1in;
+      color: #111;
+    }
+    h1, h2, h3 {
+      margin-top: 0.35in;
+      margin-bottom: 0.12in;
+    }
+    h1 { font-size: 18pt; }
+    h2 { font-size: 14pt; }
+    h3 { font-size: 12pt; }
+    p { margin: 0 0 0.12in 0; }
+    ul, ol { margin: 0 0 0.12in 0.25in; }
+    figure { margin: 0.18in 0; }
+    figcaption { font-size: 11pt; margin-top: 0.08in; }
+    .note { font-size: 11pt; }
+  </style>
+</head>
+<body>
+  <h1>CanCanBook: Interactive Cantonese Learning Web App — Multimedia Project Report</h1>
+  <p class="note"><strong>Formatting note:</strong> This document is authored to be displayed or printed using 12-point Times New Roman and single line spacing, per the specification.</p>
+
+  <h2>1. Introduction — State of the Art</h2>
+  <p>
+    The current state of the art in digital language learning is defined by multimedia experiences that blend
+    micro-learning, contextual reading, and lightweight assessment. Successful products use a layered
+    multimedia strategy: short drills (for memory retrieval), interactive stories (for contextualized input),
+    and playful rewards (for motivation). At the same time, modern e-book experiences have evolved from
+    static text to dynamic objects that can speak, highlight, animate, and respond to user input.
+  </p>
+  <p>
+    Three converging trends influence the design of contemporary interactive learning applications. First,
+    micro-lesson platforms deliver short, high-frequency practice sessions that reduce cognitive load and
+    provide immediate feedback. Second, interactive storybooks integrate vocabulary discovery inside
+    narrative, which helps learners attach meaning to expressions and acquire rhythm, tone, and syntax
+    through repetition. Third, gamified drills employ XP, streaks, or levels to keep motivation high while
+    gradually increasing challenge. These trends are not independent; the most effective systems allow
+    learners to move between them without disrupting the learning flow.
+  </p>
+  <p>
+    CanCanBook is positioned in this space as a web-based Cantonese learning application that blends
+    word-matching, interactive stories, and quick quizzes. This combination aligns with the modern
+    expectation that language-learning products are multimedia: not only text, but a mix of sound, animation,
+    and responsive UI feedback. The app leverages browser speech synthesis for Cantonese audio, basic
+    animation for progress indicators, and a level/XP system for long-term engagement. In short, the product
+    aims to bring the best of mobile micro-learning to a browser-based learning environment while retaining
+    a narrative reading component similar to interactive e-books.
+  </p>
+
+  <figure>
+    <img src="report_assets/figure1_state_of_art.svg" alt="State of the art in language learning multimedia" width="850" />
+    <figcaption>Figure 1. A schematic of current language-learning multimedia patterns and how CanCanBook positions itself among them.</figcaption>
+  </figure>
+
+  <h2>2. Goal and Overview</h2>
+  <p>
+    The primary goal of this project is to create an interactive multimedia e-book experience for learning
+    Cantonese. The product emphasizes a playful but structured learning pathway where students can
+    alternate between short vocabulary exercises, reading narrative stories, and completing quick quizzes.
+    The focus is not only on delivering information but also on integrating it into an engaging interface
+    that encourages repetition and active recall.
+  </p>
+  <p>
+    From a learning goals perspective, the project has two explicit objectives. First, it should demonstrate
+    the ability to evaluate multimedia design patterns and synthesize improvements. This includes identifying
+    strengths and weaknesses in existing products and translating those insights into a better interaction
+    model. Second, it should demonstrate technical and creative skill in creating multimedia content and
+    coordinating multiple elements such as images, audio, and animation to form a coherent user experience.
+  </p>
+  <p>
+    CanCanBook is organized into three core modules. The <strong>Word Matching</strong> module uses Duolingo-style
+    cards, requiring learners to match English and Cantonese words while earning XP based on difficulty.
+    The <strong>Interactive Stories</strong> module provides dialog-based stories with Cantonese characters, Jyutping
+    romanization, English translations, and a per-character audio feature through browser speech synthesis.
+    The <strong>Quick Quiz</strong> module provides a single multiple-choice question that reinforces vocabulary and
+    idioms, awarding XP and confetti feedback for correct answers. These modules are designed to be
+    complementary; learners can use drills for memory, stories for context, and quizzes for retrieval.
+  </p>
+  <p>
+    The platform is implemented as a lightweight PHP/JavaScript web application with a MySQL database.
+    It uses a minimalistic UI and clean navigation to make switching between modes frictionless. This fits
+    the interactive e-book paradigm because the user always feels like they are “within” the content rather
+    than in a separate application layer.
+  </p>
+
+  <h2>3. Analysis of Existing Products and Recommendations</h2>
+  <p>
+    To evaluate the design of CanCanBook, it is useful to analyze similar products that occupy neighboring
+    spaces in the language-learning and interactive e-book market. While there are many examples, three
+    categories are especially relevant: mobile micro-learning apps, interactive storybook platforms, and
+    quiz-centric reinforcement tools. The analysis below compares these categories in relation to learning
+    flow, multimedia use, and engagement strategy, and then provides recommendations for improvement in
+    the CanCanBook context.
+  </p>
+  <p>
+    <strong>Example A: Duolingo-style micro-learning apps.</strong> These products excel at consistency. They encourage
+    daily usage through streaks, tiny lessons, and immediate correctness feedback. Their interfaces are
+    bright and friendly, and their audio feedback is frequent. However, micro-learning apps sometimes suffer
+    from decontextualized vocabulary: learners can recognize a word but may not understand its usage in
+    conversation. Their story modes are usually secondary and often hidden behind progression gates.
+  </p>
+  <p>
+    <strong>Example B: Interactive storybook platforms.</strong> This category includes web or tablet products that embed
+    dictionary lookups, read-aloud features, and clickable vocabulary inside narrative passages. These
+    platforms are excellent for contextualized learning. But they can be weaker in providing spaced
+    repetition and fast feedback loops, so the learner might enjoy a story but not retain words without
+    external repetition.
+  </p>
+  <p>
+    <strong>Example C: Quiz and flashcard systems.</strong> Tools like flashcards or quick quizzes are effective for
+    retrieval practice and often allow personalized review. They can be flexible, but they can also feel
+    repetitive and disconnected from a storyline. Motivation tends to drop over time unless paired with
+    a narrative or achievement system.
+  </p>
+  <p>
+    CanCanBook already integrates the core strengths of all three categories: it offers micro-learning
+    (word matching), contextual reading (interactive stories), and quick assessment (quiz). However, an
+    evaluation reveals several opportunities for design refinement:
+  </p>
+  <ul>
+    <li><strong>Recommendation 1: Story-based progression.</strong> Instead of treating modules as parallel paths,
+      a narrative progression could sequence vocabulary practice before story chapters and then follow with
+      a quiz checkpoint. This will connect drills to context and deepen retention.</li>
+    <li><strong>Recommendation 2: Adaptive difficulty cues.</strong> Provide visual indicators that show which vocabulary
+      or story levels are most relevant to a learner’s current XP or proficiency. This reduces choice overload
+      and guides the learner to appropriate content.</li>
+    <li><strong>Recommendation 3: Richer audio scaffolding.</strong> The current speech synthesis works well for
+      pronunciation, but additional options such as slow/normal playback or tone highlighting would further
+      support Cantonese learners.</li>
+    <li><strong>Recommendation 4: Post-story reflection.</strong> After finishing a story, a short reflective prompt or
+      summary quiz could reinforce key vocabulary and encourage recall.</li>
+  </ul>
+  <p>
+    These recommendations emphasize the importance of integrating the modules into a coherent learning
+    journey rather than leaving them fully optional. While flexibility is important, the overall experience
+    can be improved by offering guided paths and meta-structure.
+  </p>
+
+  <figure>
+    <img src="report_assets/figure2_logical_flow.svg" alt="Logical flow diagram" width="850" />
+    <figcaption>Figure 2. A proposed logical flow that links login, module choice, activity completion, and XP updates.</figcaption>
+  </figure>
+
+  <h2>4. Implementation — Development Process and Multimedia Production</h2>
+  <p>
+    Developing CanCanBook required a multimedia pipeline that integrates text, audio, and interaction logic.
+    The work can be divided into four phases: pre-production planning, media asset creation, authoring and
+    coding, and integration/testing. The following sections describe each phase in detail.
+  </p>
+
+  <h3>4.1 Pre-Production Planning</h3>
+  <p>
+    Pre-production involved defining learning outcomes, creating a content outline, and mapping the
+    interactive flow. In practice, this meant selecting vocabulary sets for different difficulty levels,
+    identifying appropriate story themes, and designing quiz questions that aligned with both the vocabulary
+    and the narrative context. The planning stage also determined the system architecture: a lightweight PHP
+    backend paired with a JavaScript-driven front end for interaction.
+  </p>
+  <p>
+    The pre-production checklist included:
+  </p>
+  <ul>
+    <li>Defining the target learner profile (beginner to intermediate Cantonese learners).</li>
+    <li>Establishing the three core modes and the XP-based progression system.</li>
+    <li>Creating data structures for vocabulary lists, story JSON, and quiz items.</li>
+    <li>Planning UI wireframes for each screen, especially the story view and matching cards.</li>
+  </ul>
+  <p>
+    A key planning decision was to rely on web-native features (like the Web Speech API) rather than
+    pre-recorded audio. This kept costs low while still providing pronunciation guidance. Another decision
+    was to prioritize clarity over animation-heavy design, since this is an educational product and must
+    remain readable and accessible.
+  </p>
+
+  <h3>4.2 Multimedia Element Creation</h3>
+  <p>
+    The project uses multiple media types, each selected to reinforce learning outcomes. The most
+    prominent elements are text (characters, romanization, translation), audio (speech synthesis),
+    animation (progress updates and confetti), and UI graphics (cards, buttons, icons). Although there
+    are no high-resolution photographic assets, the integration of these elements qualifies as an
+    interactive multimedia system.
+  </p>
+  <p>
+    <strong>Text elements:</strong> Cantonese characters and Jyutping are displayed in a layered manner to support
+    phonetic decoding. English translations are placed at the line level to avoid clutter and preserve
+    reading flow. Typography choices emphasize legibility, with a clear hierarchy between character and
+    romanization lines.
+  </p>
+  <p>
+    <strong>Audio elements:</strong> The Web Speech API provides on-demand audio with the “Play Audio” function.
+    This is generated dynamically rather than pre-recorded, enabling quick iteration and a lighter
+    asset footprint. Audio feedback in the word-matching and quiz modules reinforces correct answers
+    and encourages immediate repetition.
+  </p>
+  <p>
+    <strong>Animation elements:</strong> The progress bar in word matching and the confetti animation in quizzes
+    serve as low-cost but effective feedback. These small visual cues increase engagement without
+    overwhelming the learning experience.
+  </p>
+
+  <h3>4.3 Authoring and Integration</h3>
+  <p>
+    Authoring involved assembling the data (vocabulary, stories, quiz questions) into a structured database
+    and building the interface logic in PHP and JavaScript. Stories were authored in JSON format to allow
+    per-line segmentation and word-level interaction. Vocabulary and quiz questions were stored in tables
+    keyed by level, enabling dynamic retrieval based on learner proficiency.
+  </p>
+  <p>
+    The integration phase focused on ensuring a consistent user experience across modules. Shared UI
+    components such as the navigation bar, level indicator, and XP counters create continuity. Data flow
+    was designed so that each module can update the user’s progress in the same way. This consistency is
+    critical for user trust because it reinforces the idea that all activities contribute to the same
+    learning journey.
+  </p>
+
+  <h3>4.4 Planning and Costing</h3>
+  <p>
+    A small-scale web app like CanCanBook can be produced with minimal external cost if open-source
+    libraries and browser APIs are leveraged. Below is a typical cost estimate for a student-scale project,
+    assuming a single developer and a limited production window.
+  </p>
+  <ul>
+    <li><strong>Labor time:</strong> 80–120 hours total, including content authoring, coding, and testing.</li>
+    <li><strong>Software:</strong> $0 (using open-source tools, browser APIs, and free development environments).</li>
+    <li><strong>Hosting:</strong> $5–10/month for a small shared hosting plan or student web server.</li>
+    <li><strong>Audio production:</strong> $0 if using speech synthesis; $100–300 if hiring voice actors.</li>
+    <li><strong>Visual assets:</strong> $0 if created in-house using vector tools; higher if professional design is required.</li>
+  </ul>
+  <p>
+    Costing shows that a multimedia application with meaningful interaction can be built affordably when
+    the system architecture is lightweight and relies on the browser for multimedia playback.
+  </p>
+
+  <h2>5. Logical Designs — Functional Flow and Control Requirements</h2>
+  <p>
+    Logical design defines how information is structured and how user actions flow through the system. For
+    a multimedia application, it is especially important to map how media elements respond to user input
+    and how feedback is provided. CanCanBook is structured around a hub-and-spoke model: users arrive at
+    a dashboard, select a module, complete a task, and return with updated XP. The flow is intentionally
+    simple so that cognitive energy is spent on language learning rather than navigation.
+  </p>
+
+  <h3>5.1 Functional Overview</h3>
+  <p>
+    The main functional components include: authentication, the home dashboard, word matching, interactive
+    stories, quick quizzes, and progression tracking. Each component is a self-contained screen, but all
+    share common navigation elements and consistent visual cues.
+  </p>
+
+  <h3>5.2 Control Requirements by Screen</h3>
+  <ul>
+    <li><strong>Login Screen:</strong> A single “Continue with Google” button. This reduces friction and ensures
+      account data is consistent. The control requirement is minimal to keep attention on learning.</li>
+    <li><strong>Home Dashboard:</strong> Buttons or cards that link to Word Matching, Stories, and Quiz. A level/XP
+      indicator must remain visible. The user should have a clear understanding of progress and next steps.</li>
+    <li><strong>Word Matching Screen:</strong> Interactive cards that can be clicked or tapped. Controls include
+      “Start,” “Reset,” and a toggle for hiding Cantonese text (listening mode). The system must provide
+      immediate correctness feedback and update the progress bar.</li>
+    <li><strong>Story Screen:</strong> Controls include “Play Audio” per line and optional per-character playback.
+      A “Next” or “Back” navigation path allows movement between stories. A return-to-dashboard control
+      should be present to allow quick switching.</li>
+    <li><strong>Quick Quiz Screen:</strong> Multiple-choice options with a single submit action. After submission,
+      the interface must show correct/incorrect feedback and update XP if correct. A “Next Question” or
+      “Try Another” button supports continuous practice.</li>
+  </ul>
+  <p>
+    The logical flow is summarized in Figure 2. It shows that each module feeds into the same XP update
+    system. This is important because it enables a unified progression model while allowing the learner to
+    choose different types of multimedia interaction.
+  </p>
+
+  <h2>6. Storyboarding and UI Design</h2>
+  <p>
+    Storyboarding is essential in multimedia production because it visualizes not only content but also
+    pacing and user interaction. For CanCanBook, the storyboard focuses on the learner journey: entering
+    the system, selecting a module, engaging with media, and receiving feedback. The storyboard below
+    is a simplified representation of the user flow with emphasis on the story-reading path.
+  </p>
+
+  <figure>
+    <img src="report_assets/figure3_storyboard.svg" alt="Storyboard for learner journey" width="850" />
+    <figcaption>Figure 3. Simplified storyboard that illustrates the main screens from entry to XP completion.</figcaption>
+  </figure>
+
+  <h3>6.1 User Interface Design Principles</h3>
+  <p>
+    The UI is designed around clarity and consistency. Learners must be able to focus on reading and
+    listening without navigation distractions. The layout follows a simple hierarchy: top navigation with
+    user and progress indicators, main content area for stories or cards, and a supportive footer or action
+    buttons. The typography is chosen to make Cantonese characters large and legible, while the romanized
+    Jyutping remains directly above the characters for quick reference. English translations are placed
+    below to reduce crowding.
+  </p>
+  <p>
+    Color usage is minimal: neutral backgrounds with accent colors for actions and feedback. This aligns
+    with a calm learning environment and avoids visual overload. Icons are used sparingly to represent
+    audio, progression, and navigation. The iconography is intentionally simple to reduce cultural
+    ambiguity and to keep the interface accessible to learners of all ages.
+  </p>
+
+  <h3>6.2 Screen-by-Screen UI Notes</h3>
+  <ul>
+    <li><strong>Landing/Home:</strong> The landing page uses a clean hero section with a focus on the primary
+      call-to-action. The dashboard presents three large cards or buttons to select a learning mode.</li>
+    <li><strong>Word Matching:</strong> The card layout highlights two languages with balanced typography. The
+      progress bar is anchored at the top to show completion at a glance.</li>
+    <li><strong>Stories:</strong> The story view is designed like an e-book page: lines are separated with
+      generous spacing, and the “Play Audio” control is aligned to the right to signal action without
+      interrupting reading flow.</li>
+    <li><strong>Quiz:</strong> The quiz screen uses a single-question focus, large option buttons, and an
+      immediate feedback area. Confetti appears briefly, then the interface resets to keep pace.</li>
+  </ul>
+
+  <h2>7. Testing and Evaluation — Alpha and Beta</h2>
+  <p>
+    Testing was structured into two stages: Alpha testing for internal correctness and usability, and Beta
+    testing for external feedback and learning effectiveness. Each stage included both functional and
+    qualitative evaluation.
+  </p>
+
+  <h3>7.1 Alpha Testing</h3>
+  <p>
+    Alpha testing focused on verifying that each module works as designed. Specific checks included:
+  </p>
+  <ul>
+    <li><strong>Authentication:</strong> Google login correctly creates or retrieves a user profile and initializes
+      level/XP values.</li>
+    <li><strong>Word Matching:</strong> Cards shuffle correctly, matches register, progress bar fills, and XP is
+      awarded based on level.</li>
+    <li><strong>Stories:</strong> JSON story content loads properly, character-level clicks trigger speech synthesis,
+      and line-level “Play Audio” works with the correct text.</li>
+    <li><strong>Quiz:</strong> Options render from the database, correct answers trigger feedback and XP, and
+      incorrect answers show error states without XP reward.</li>
+    <li><strong>Navigation:</strong> Users can return to the dashboard without losing session state, and the
+      level/XP display remains accurate.</li>
+  </ul>
+  <p>
+    Alpha testing also checked for edge cases such as missing audio voices in the browser or incomplete
+    story data. The conclusion was that the overall logic is stable, but it would be beneficial to provide
+    graceful fallback messaging when a device does not support Cantonese speech synthesis.
+  </p>
+
+  <h3>7.2 Beta Testing</h3>
+  <p>
+    Beta testing targeted real user feedback with a small group of Cantonese learners. The evaluation
+    criteria were usability, engagement, and perceived learning value. Users reported that the story module
+    was the most enjoyable due to its narrative structure, while the word-matching module was perceived as
+    the most effective for memorization. The quiz module was seen as a quick confidence check.
+  </p>
+  <p>
+    Feedback also revealed improvement opportunities. Some users wanted audio repetition controls to slow
+    down playback. Others suggested a way to bookmark story lines or words for later review. Several users
+    asked for clearer cues about which activity to do next. These points align with the recommendations in
+    Section 3 and suggest that guided progression and richer audio controls would be the most valuable
+    next steps.
+  </p>
+
+  <h2>8. Conclusion</h2>
+  <p>
+    CanCanBook demonstrates a practical application of multimedia learning principles in a web-based
+    environment. By combining vocabulary drills, interactive stories, and quick quizzes, it bridges
+    the gap between decontextualized practice and contextual reading. Its multimedia elements—text,
+    audio, and animation—are integrated thoughtfully to support both engagement and learning outcomes.
+  </p>
+  <p>
+    The analysis of existing products shows that the project is well aligned with the state of the art,
+    but it can be improved by deepening narrative progression, adding adaptive guidance, and enhancing
+    audio scaffolding. These improvements would strengthen the connection between activities and make
+    the learning journey more cohesive. Overall, the project fulfills the goals of evaluating multimedia
+    design, creating interactive content, and demonstrating technical skills in authoring an e-book-like
+    experience for Cantonese learners.
+  </p>
+</body>
+</html>

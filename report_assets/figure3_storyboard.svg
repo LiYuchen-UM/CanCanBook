@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+  <style>
+    .title { font: 20px 'Times New Roman', serif; font-weight: bold; }
+    .frame { fill: #ffffff; stroke: #0f172a; stroke-width: 2; }
+    .label { font: 14px 'Times New Roman', serif; }
+    .screen { fill: #e2e8f0; stroke: #64748b; stroke-width: 1.5; }
+  </style>
+  <rect width="900" height="520" fill="#ffffff" />
+  <text x="30" y="35" class="title">Storyboard: Learner Journey from Entry to Completion</text>
+
+  <rect x="40" y="70" width="160" height="200" class="frame" />
+  <rect x="60" y="100" width="120" height="120" class="screen" />
+  <text x="55" y="240" class="label">1. Landing + Login</text>
+
+  <rect x="220" y="70" width="160" height="200" class="frame" />
+  <rect x="240" y="100" width="120" height="120" class="screen" />
+  <text x="225" y="240" class="label">2. Home Dashboard</text>
+
+  <rect x="400" y="70" width="160" height="200" class="frame" />
+  <rect x="420" y="100" width="120" height="120" class="screen" />
+  <text x="410" y="240" class="label">3. Story List</text>
+
+  <rect x="580" y="70" width="160" height="200" class="frame" />
+  <rect x="600" y="100" width="120" height="120" class="screen" />
+  <text x="585" y="240" class="label">4. Read + Listen</text>
+
+  <rect x="760" y="70" width="120" height="200" class="frame" />
+  <rect x="780" y="100" width="80" height="120" class="screen" />
+  <text x="762" y="240" class="label">5. XP Earned</text>
+
+  <rect x="40" y="300" width="840" height="160" class="frame" />
+  <text x="60" y="340" class="label">Notes: Each frame represents a single screen with consistent top navigation, level badge,
+  and primary call-to-action. The learner can move forward, replay audio, or return to the
+  dashboard at any time.</text>
+</svg>
